@@ -1,14 +1,32 @@
-## Simple Task List
+# Simple Task List
 This is a hobby project built in python to test out my ability to make a simple "todo list" program.
 
-This project may or may not get tagged releases in the future
+You can execute the CLI by typing in `simpletodo` in a terminal of your choice
 
-## Targets
+# Targets
 1. Build a fully functional CLI
 2. Build a GUI around the existing code
 3. Become stable
 
-## License
+# Installation
+
+## Windows
+### You may need to allow running scripts from the web
+
+1. Open Terminal (Admin)
+2. Paste in the command below
+
+`Set-ExecutionPolicy RemoteSigned`
+
+#### One-liner
+`iwr -useb https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/main/install-script/install.ps1 | iex`
+
+## MacOS and linux
+
+#### One-liner
+`bash <(curl -fsSL https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/main/install-scripts/install.sh)`
+
+# License
 ```
 Copyright 2025 Harley Jones
 
@@ -24,4 +42,4 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
 
 ```
 
-Made with <3 by Harley
+**Made with <3 by Harley**

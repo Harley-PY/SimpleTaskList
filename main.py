@@ -1,8 +1,6 @@
 import os
 import json
 
-print("Welcome to simple task list")
-
 if not os.path.isfile("tasks.json"):
     with open("tasks.json", "w") as tasks:
         tasks.write("{\"tasks\": []}") # create blank json file
@@ -18,7 +16,7 @@ class task_manager:
 
                 i = 1
                 for task in tasks:
-                    final_string = f"{final_string}{str(i)}. {task["task_name"]}\n"
+                    final_string = f" {final_string}{str(i)}. {task["task_name"]}\n"
                     i += 1
 
                 return final_string
