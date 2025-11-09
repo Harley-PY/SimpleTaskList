@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop"
 $repoUrl = "https://github.com/Harley-PY/SimpleTaskList.git"
 $appName = "simpletodo"
 $installDir = "$env:USERPROFILE\.$appName"
+$mainScript = "main.py"
 
 Write-Host "🚀 Starting installation for $appName..."
 
@@ -43,14 +44,19 @@ if (Test-Path $installDir) {
     Set-Location $installDir
 }
 
-# --- Run setup ---
-python setup.py
+# --- Create launcher script ---
+$launcherPath = Join-Path $installDir "$appName.bat"
+$launcherContent = "@echo off`npython `"%~dp0$mainScript`" %*"
+Set-Content -Path $launcherPath -Value $launcherContent -Encoding ASCII
+Write-Host "✅ Created launcher: $launcherPath"
 
-# --- Add to PATH ---
+# --- Add install folder to PATH if not already ---
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if ($oldPath -notlike "*$installDir*") {
     [Environment]::SetEnvironmentVariable("Path", "$oldPath;$installDir", "User")
     Write-Host "✅ Added $appName to PATH."
+} else {
+    Write-Host "ℹ️ $appName folder already in PATH."
 }
 
 Write-Host "`n🎉 Installation complete!"
