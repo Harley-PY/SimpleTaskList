@@ -5,7 +5,21 @@ print("Welcome to simple task list")
 
 if not os.path.isfile("tasks.json"):
     with open("tasks.json", "w") as tasks:
-        tasks.write("{\n\n}") # create blank json file
+        tasks.write("{\"tasks\": []}") # create blank json file
+
+def write_json(new_data, filename='tasks.json'):
+    with open(filename, 'r+') as file:
+        # Load existing data into a dictionary
+        file_data = json.load(file)
+
+        # Append new data to the 'emp_details' list
+        file_data["tasks"].append(new_data)
+
+        # Move the cursor to the beginning of the file
+        file.seek(0)
+
+        # Write the updated data back to the file
+        json.dump(file_data, file, indent=4)
 
 while True:
     print("What would you like to do?")
@@ -29,14 +43,9 @@ while True:
                 task_name = input("What is the name of the task: ")
 
                 if len(task_name) != 0:
-                    with open("tasks.json", "r+") as tasks:
-                        js = json.loads(tasks.read())
-                        js.update({"task_name": task_name})
-                        jsstring = json.dumps(js)
-
-                        tasks.write(jsstring)
+                        write_json({"task_name": task_name})
                         print("Success!")
-                    break
+                        break
                 else:
                     print("Nothing entered!")
         case "e":
