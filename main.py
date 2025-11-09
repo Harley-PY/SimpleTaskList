@@ -2,11 +2,12 @@ import argparse
 import os
 import json
 
-if not os.path.isfile("tasks.json"):
-    with open("tasks.json", "w") as tasks:
-        tasks.write("{\"tasks\": []}") # create blank json file
-
 class task_manager:
+    def gen_file(path="tasks.json"):
+        if not os.path.isfile(path):
+            with open(path, "w") as tasks:
+                tasks.write("{\"tasks\": []}")
+
     def read(isPretty=False, withId=False):
         with open("tasks.json", "r") as file:
             js = json.loads(file.read())
@@ -58,6 +59,9 @@ def main():
     remove_parser = subparsers.add_parser("remove", help="Remove a task by ID")
     remove_parser.add_argument("id", help="Task ID to remove")
 
+    # Reset command
+    subparsers.add_parser("reset", help="Deletes all tasks saved")
+
     args = parser.parse_args()
 
     match args.command:
@@ -75,6 +79,13 @@ def main():
             print(output)
         case "remove":
             print(f"🗑️ Removed task #{args.id}")
+        case "reset":
+            try:
+                os.remove("tasks.json")
+                print("Reset success")
+                task_manager.gen_file()
+            except:
+                print("Reset failed")
 
 if __name__ == "__main__":
     main()
