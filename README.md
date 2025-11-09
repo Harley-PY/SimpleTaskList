@@ -9,6 +9,7 @@ You can execute the CLI by typing in `simpletodo` in a terminal of your choice
 3. Become stable
 
 # Installation
+This program is *experimental* and in no way is ready for everyday users, I have provided a quick install script to help speed up testing.
 
 ## Windows
 ### You may need to allow running scripts from the web

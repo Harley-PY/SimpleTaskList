@@ -1,3 +1,4 @@
+import argparse
 import os
 import json
 
@@ -16,7 +17,7 @@ class task_manager:
 
                 i = 1
                 for task in tasks:
-                    final_string = f" {final_string}{str(i)}. {task["task_name"]}\n"
+                    final_string = f"{final_string}{str(i)}. {task["task_name"]}\n"
                     i += 1
 
                 return final_string
@@ -37,32 +38,34 @@ class task_manager:
             # Write the updated data back to the file
             json.dump(file_data, file, indent=4)
 
-while True:
-    print("What would you like to do?")
-    print("(r) Read tasks list")
-    print("(m) Modify task")
-    print("(n) Create new task")
-    print("(e) Exit")
-    selection = input("Enter selection: ").lower()
+def main():
+    parser = argparse.ArgumentParser(prog="simpletodo", description="A simple to-do CLI app")
 
-    match selection:
-        case "r": ## read tasks
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    # Add command
+    add_parser = subparsers.add_parser("add", help="Add a new task")
+    add_parser.add_argument("task", nargs="+", help="Task description")
+
+    # List command
+    subparsers.add_parser("list", help="List all tasks")
+
+    # Remove command
+    remove_parser = subparsers.add_parser("remove", help="Remove a task by ID")
+    remove_parser.add_argument("id", type=int, help="Task ID to remove")
+
+    args = parser.parse_args()
+
+    match args.command:
+        case "add":
+            task = " ".join(args.task)
+            task_manager.new({"task_name": task})
+            print("Success!")
+        case "list":
             output = task_manager.read(isPretty=True)
             print(output)
-        case "m": ## modify task
-            print("Not implemented")
-        case "n": ## new task
-            while True:
-                task_name = input("What is the name of the task: ")
+        case "remove":
+            print(f"🗑️ Removed task #{args.id}")
 
-                if len(task_name) != 0:
-                        task_manager.new({"task_name": task_name})
-                        print("Success!")
-                        break
-                else:
-                    print("Nothing entered!")
-        case "e":
-            break
-        case _:
-            print("Note a valid selection")
-            continue
+if __name__ == "__main__":
+    main()
