@@ -7,7 +7,7 @@ if not os.path.isfile("tasks.json"):
         tasks.write("{\"tasks\": []}") # create blank json file
 
 class task_manager:
-    def read(isPretty=False):
+    def read(isPretty=False, withId=False):
         with open("tasks.json", "r") as file:
             js = json.loads(file.read())
             tasks = js["tasks"]
@@ -17,7 +17,10 @@ class task_manager:
 
                 i = 1
                 for task in tasks:
-                    final_string = f"{final_string}{str(i)}. {task["task_name"]}\n"
+                    if withId:
+                        final_string = f"{final_string}({task["id"]}) {str(i)}. {task["task_name"]}\n"
+                    else:
+                        final_string = f"{final_string}{str(i)}. {task["task_name"]}\n"
                     i += 1
 
                 return final_string
@@ -48,11 +51,12 @@ def main():
     add_parser.add_argument("task", nargs="+", help="Task description")
 
     # List command
-    subparsers.add_parser("list", help="List all tasks")
+    list_parser = subparsers.add_parser("list", help="List all tasks")
+    list_parser.add_argument("--with-id", action="store_true",   help="Show ids")
 
     # Remove command
     remove_parser = subparsers.add_parser("remove", help="Remove a task by ID")
-    remove_parser.add_argument("id", type=int, help="Task ID to remove")
+    remove_parser.add_argument("id", help="Task ID to remove")
 
     args = parser.parse_args()
 
@@ -66,7 +70,8 @@ def main():
 
             print("Success!")
         case "list":
-            output = task_manager.read(isPretty=True)
+            with_id = args.with_id
+            output = task_manager.read(isPretty=True, withId=with_id)
             print(output)
         case "remove":
             print(f"🗑️ Removed task #{args.id}")
