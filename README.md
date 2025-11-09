@@ -19,12 +19,12 @@ You can execute the CLI by typing in `simpletodo` in a terminal of your choice
 `Set-ExecutionPolicy RemoteSigned`
 
 #### One-liner
-`iwr -useb https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/main/install-script/install.ps1 | iex`
+`iwr -useb https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/refs/heads/master/install-scripts/install.ps1 | iex`
 
 ## MacOS and linux
 
 #### One-liner
-`bash <(curl -fsSL https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/main/install-scripts/install.sh)`
+`bash <(curl -fsSL https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/refs/heads/master/install-scripts/install.sh)`
 
 # License
 ```
