@@ -31,9 +31,14 @@ while True:
 
     match selection:
         case "r":
-            with open("tasks.json", "r") as tasks:
-                js = json.loads(tasks.read())
-                print(json.dumps(js))
+            with open("tasks.json", "r") as file:
+                js = json.loads(file.read())
+                tasks = js["tasks"]
+
+                i = 1
+                for task in tasks:
+                    print(str(i) + ".", task["task_name"])
+                    i += 1
         case "m":
             with open("tasks.json", "r") as tasks:
                 js = json.loads(tasks.read())
