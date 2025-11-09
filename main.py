@@ -1,10 +1,11 @@
 import os
+import json
 
 print("Welcome to simple task list")
 
 if not os.path.isfile("tasks.json"):
-    with open("tasks.json", "a") as tasks:
-        tasks.write("{\n}")
+    with open("tasks.json", "w") as tasks:
+        tasks.write("{\n\n}") # create blank json file
 
 while True:
     print("What would you like to do?")
@@ -17,17 +18,24 @@ while True:
     match selection:
         case "r":
             with open("tasks.json", "r") as tasks:
-                print(tasks.read())
+                js = json.loads(tasks.read())
+                print(json.dumps(js))
         case "m":
             with open("tasks.json", "r") as tasks:
-                print(tasks.read())
+                js = json.loads(tasks.read())
+                print(js)
         case "n":
             while True:
                 task_name = input("What is the name of the task: ")
 
                 if len(task_name) != 0:
-                    with open("tasks.json", "a") as tasks:
-                        tasks.write(task_name)
+                    with open("tasks.json", "r+") as tasks:
+                        js = json.loads(tasks.read())
+                        js.update({"task_name": task_name})
+                        jsstring = json.dumps(js)
+
+                        tasks.write(jsstring)
+                        print("Success!")
                     break
                 else:
                     print("Nothing entered!")
