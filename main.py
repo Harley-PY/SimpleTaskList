@@ -59,7 +59,11 @@ def main():
     match args.command:
         case "add":
             task = " ".join(args.task)
-            task_manager.new({"task_name": task})
+            task_h = hash(task)
+
+            task_id = hex(task_h & 0xFFFFFF)[2:]
+            task_manager.new({"id": task_id, "task_name": task})
+
             print("Success!")
         case "list":
             output = task_manager.read(isPretty=True)
