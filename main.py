@@ -43,6 +43,9 @@ class task_manager:
             json.dump(file_data, file, indent=4)
 
 def main():
+    if not os.path.isfile("tasks.json"):
+        gen_file("tasks.json")
+        
     parser = argparse.ArgumentParser(prog="simpletodo", description="A simple to-do CLI app")
 
     subparsers = parser.add_subparsers(dest="command", required=True)
