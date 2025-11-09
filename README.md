@@ -22,6 +22,7 @@ You can execute the CLI by typing in `simpletodo` in a terminal of your choice
 `iwr -useb https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/refs/heads/master/install-scripts/install.ps1 | iex`
 
 ## MacOS and linux
+If you are running a distro that does not include the apt package manager make sure you install `git`, `curl` and `python` before running this script
 
 #### One-liner
 `bash <(curl -fsSL https://raw.githubusercontent.com/Harley-PY/SimpleTaskList/refs/heads/master/install-scripts/install.sh)`
